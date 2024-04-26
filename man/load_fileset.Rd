@@ -15,17 +15,17 @@ load_fileset(
 )
 }
 \arguments{
-\item{data}{A \code{dataframe} with character columns of \code{URL}, \code{DIR}, and \code{Info}}
+\item{data}{(data.frame) Dataframe with character columns of \code{URL}, \code{DIR}, and \code{Info}. Read the description for more information.}
 
-\item{worker}{Number of workers to download the data (\code{numerical})}
+\item{worker}{(integer) Number of workers to download the data}
 
-\item{attempt}{The maximum number of download attempts (\code{numerical})}
+\item{attempt}{(integer) The maximum number of download attempts}
 
-\item{threshold}{The minimum file size in bytes (\code{numerical})}
+\item{threshold}{(numerical) The minimum file size in bytes}
 
-\item{list_fail}{List failed to download items (\code{logical})}
+\item{list_fail}{(logical) List failed to download items}
 
-\item{title}{Title of the downloaded items (\code{character})}
+\item{title}{(character) Title of the downloaded items}
 
 \item{...}{Additional parameters to be passed to \code{RCurl::getBinaryURL}}
 }
@@ -35,7 +35,8 @@ Downloaded files
 \description{
 Portal to download a list of file sets, using sequential and parallel programming. A file set refers to files with multiple, potential, URLs. These can be extremely common as some URLs contains the date and time of when these URLs are created.
 
-To initiate download process, input a dataframe with columns \code{DIR}, \code{URL}, \code{Info} representing the url, the destination directory and info of the data desired into \code{data}. The switch between sequential and parallel are determined by number of workers set.
+To initiate download process, input a dataframe with columns \code{DIR}, \code{URL}, \code{Info} representing the url, the destination directory and info of the data desired into \code{data}. The switch between sequential and parallel are determined by number of workers set
+
 If ...
 \itemize{
 \item \code{worker} < 0, Returns the dataframe
@@ -43,5 +44,5 @@ If ...
 \item \code{worker} > 1, Initiate the download using parallel computation
 }
 
-The download files may be incomplete, due to networking issues. \code{threshold} determines the min. file size to be download. Any files with a smaller file size will be rejected. \code{attempt} determines the number of attempts to download a certain file. The next attempt(s) will only attempt to download the failed files in the current attempt. \code{list_fail} will list all failed download attempts.
+The download files may be incomplete, due to network issues. \code{threshold} determines the min. file size to be download. Any files with a smaller file size will be rejected. \code{attempt} determines the number of attempts to download a certain file. The next attempt(s) will only attempt to download the failed files in the current attempt. \code{list_fail} will list all failed download attempts.
 }

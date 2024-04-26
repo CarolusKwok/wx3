@@ -1,16 +1,22 @@
-#' System tools: Print out the download initiation panel
+#' System tools: Print out the load panel
 #'
 #' @param title Title of the downloaded items
-#' @param time_start Start of time
+#' @param time_start Time of the download process starts
+#' @param time_end Time of the download process ends
 #' @param data_1 The first item to be downloaded
 #' @param data_n The last item to be downloaded
 #' @param data_num Number of items to download
+#' @param attempts Total attempts made to download all the items
+#' @param success Total number of success
+#' @param fail Total number of fails
+#' @param list_fail Should you list the failed-to-download items?
+#' @param list_of_fail The list of failed to download items.
 #'
 #' @keywords internal
-#' @noRd
+#' @rdname load_panel
 #'
 #' @examples sys_ldhp_panelstart("test", Sys.time(), "1", "n", 999)
-load_panelstart = function(title, time_start, data_1, data_n, data_num, storm = F){
+load_panelstart = function(title, time_start, data_1, data_n, data_num, storm = FALSE){
 
   if(storm){
     d = cli::cli_div(theme = list(rule = list("color" = "black",
@@ -40,23 +46,11 @@ load_panelstart = function(title, time_start, data_1, data_n, data_num, storm = 
   cli::cli_end(d)
 }
 
-
-#' System tools: Print out the download complete panel
-#'
-#' @param time_start Time of the download process starts
-#' @param time_end Time of the download process ends
-#' @param attempts Total attempts made to download all the items
-#' @param success Total number of success
-#' @param fail Total number of fails
-#' @param list_fail Should you list the failed-to-download items?
-#' @param list_of_fail The list of failed to download items.
-#' @param length The length of the panel to be drawn. Default as `51` characters
-#'
 #' @keywords internal
-#' @noRd
+#' @rdname load_panel
 #'
 #' @examples sys_ldhp_panelend(Sys.time(), Sys.time(), 999, 0, 9, TRUE, "fail")
-load_panelend = function(time_start, time_end, attempts, success, fail, list_fail, list_of_fail, length = 51){
+load_panelend = function(time_start, time_end, attempts, success, fail, list_fail, list_of_fail){
   time_diff = round(as.numeric(difftime(time_end, time_start, units = "mins")), digits = 3)
 
   d = cli::cli_div(theme = list(rule = list("color" = "red",
@@ -75,7 +69,7 @@ load_panelend = function(time_start, time_end, attempts, success, fail, list_fai
     num = length(list_of_fail)
     if(num > 0){
       cli::cli_alert_danger("Failed items as follow:")
-      cli::cli_bullets(c(" " = "{stringr::str_flatten(list_of_fail, collapse = ", ")}"))
+      cli::cli_bullets(c(" " = "{stringr::str_flatten(list_of_fail, collapse = ',')}"))
     } else {
       cli::cli_alert_success("There are no failed items!")
     }
