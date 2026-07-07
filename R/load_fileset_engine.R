@@ -71,7 +71,10 @@ load_fileset.engine = function(data_download, tmp_dir, threshold, ...){
       dplyr::ungroup()
     if(nrow(TMP_DIR) >= 1){
       for(X in unique(dirname(TMP_DIR$DIR))){dir.create(path = X, showWarnings = FALSE, recursive = TRUE)}
-      file.rename(from = TMP_DIR$TMP, to = TMP_DIR$DIR)
+      #file.rename(from = TMP_DIR$TMP, to = TMP_DIR$DIR)
+
+      file_copy_success = file.copy(from = TMP_DIR$TMP, to = TMP_DIR$DIR)
+      file.remove(TMP_DIR$TMP[file_copy_success])
     }
   }
 

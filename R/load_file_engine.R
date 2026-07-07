@@ -44,7 +44,10 @@ load_file.engine = function(data_download, tmp_dir, threshold, ...){
                                   Size_tmp >= threshold)
     if(nrow(data_download) > 0){
       for(X in unique(dirname(data_download$DIR))){dir.create(path = X, showWarnings = FALSE, recursive = TRUE)}
-      file.rename(from = data_download$TMP, to = data_download$DIR)
+      #file.rename(from = data_download$TMP, to = data_download$DIR)
+
+      file_copy_success = file.copy(from = data_download$TMP, to = data_download$DIR)
+      file.remove(data_download$TMP[file_copy_success])
     }
   }
 
